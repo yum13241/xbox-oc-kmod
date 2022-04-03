@@ -3,8 +3,8 @@
 #include <linux/kernel.h>
 #include <linux/usb.h>
 
-#define GCADAPTER_VID 0x057e
-#define GCADAPTER_PID 0x0337
+#define GCADAPTER_VID 0x045e
+#define GCADAPTER_PID 0x0040
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Hannes Mann");
