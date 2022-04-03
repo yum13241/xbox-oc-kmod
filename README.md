@@ -1,6 +1,6 @@
 # wmo_oc_kmod
  # TODO: change names so it doesn't conflict with gcadapter
-Kernel module for overclocking the WMO1.1a, based on HannesMan driver for Nintendo Wii U/Mayflash GameCube adapter.
+Kernel module for overclocking the WMO1.1a on XHCI controllers, based on HannesMan driver for Nintendo Wii U/Mayflash GameCube adapter.
 
 The default overclock is from 125 Hz to 1000 Hz. Official adapters should be able to handle this but if you experience stutter or dropped inputs you can try lowering the rate to 500 Hz.
 
