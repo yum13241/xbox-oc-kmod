@@ -42,15 +42,23 @@ You can change the rate by using the kernel parameter `wmo_oc.rate=n` (if instal
 On a terminal, use the lsusb command
 It should give you an output like this 
 
-Bus 004 Device 002: ID 05e3:0626 Genesys Logic, Inc. Hub
+``Bus 004 Device 002: ID 05e3:0626 Genesys Logic, Inc. Hub
+
 Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
 Bus 003 Device 005: ID 1b1c:0c0b Corsair Lighting Node Pro
+
 Bus 003 Device 003: ID 258a:0016 BY Tech Usb Gaming Keyboard
+
 Bus 003 Device 002: ID 05e3:0610 Genesys Logic, Inc. Hub
+
 Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
 Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
 Bus 001 Device 002: ID 045e:0040 Microsoft Corp. Wheel Mouse Optical
-Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 3.0 root hub
+
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 3.0 root hub``
 
 Note that in my case, I own a WMO1.1a, which is this one
 Bus 001 Device 002: ID 045e:0040 Microsoft Corp. Wheel Mouse Optical
