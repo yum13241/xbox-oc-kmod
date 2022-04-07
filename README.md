@@ -36,3 +36,25 @@ For other distros copying the module to an appropriate directory under `/usr/lib
 Polling rate is set according to the `bInterval` value in the USB endpoint descriptor. The value sets the polling rate in milliseconds, for example: an interval value of 4 equals 250 Hz.
 
 You can change the rate by using the kernel parameter `wmo_oc.rate=n` (if installed), passing the rate to `insmod wmo_oc.ko rate=n` or going into `/sys/module/wmo_oc/parameters` and using `echo n > rate` to change the value
+
+## Using a different mouse
+
+On a terminal, use the lsusb command
+It should give you an output like this 
+
+Bus 004 Device 002: ID 05e3:0626 Genesys Logic, Inc. Hub
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 003 Device 005: ID 1b1c:0c0b Corsair Lighting Node Pro
+Bus 003 Device 003: ID 258a:0016 BY Tech Usb Gaming Keyboard
+Bus 003 Device 002: ID 05e3:0610 Genesys Logic, Inc. Hub
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 002: ID 045e:0040 Microsoft Corp. Wheel Mouse Optical
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 3.0 root hub
+
+Note that in my case, I own a WMO1.1a, which is this one
+Bus 001 Device 002: ID 045e:0040 Microsoft Corp. Wheel Mouse Optical
+
+The VID:PID values are 045e:0040. 045e is the Vendor ID and 0040 is the Product ID. If your mouse has different values this won't work unless you edit the code.
+
+For this, you can go to wmo_oc.c and edit lines 6 and 7 to match your VID:PID values, after that you can build like normal.
