@@ -1,22 +1,27 @@
 # wmo_oc_kmod
- # TODO: change names so it doesn't conflict with gcadapter
+
 Kernel module for overclocking the WMO1.1a on XHCI controllers, based on HannesMan driver for Nintendo Wii U/Mayflash GameCube adapter.
 
-The default overclock is from 125 Hz to 1000 Hz. Official adapters should be able to handle this but if you experience stutter or dropped inputs you can try lowering the rate to 500 Hz.
+The default overclock is from 125 Hz to 1000 Hz. The WMO1.1a should be able to overclock to 1000hz with no issues but your mileage may vary, if your particular mouse can't handle it try going for 500hz.
 
-This [document](https://docs.google.com/document/d/1cQ3pbKZm_yUtcLK9ZIXyPzVbTJkvnfxKIyvuFMwzWe0/edit) by [SSBM_Arte](https://twitter.com/SSBM_Arte) has more detailed information regarding controller overclocking.
+You should have already tried the official instructions on ArchWiki before needing this, if you have a native EHCI controller then you may be better off using that.
+
+## TODO: 
+
+Decide if trying to read usbhid mousepoll option or making another one (see Discussions)
+
+Decide if making the VID:PID variables a list or array, receive new ones as a kernel parameter or try targetting all mouses asking usbhid somehow. (see discussions)
 
 ## Building
 
-Use `make` to build gcadapter_oc.ko and `sudo insmod gcadapter_oc.ko` to load the module into the running kernel.
+Use `make` to build gcadapter_oc.ko and `sudo insmod wmo_oc.ko` to load the module into the running kernel.
 
-[![asciicast](https://asciinema.org/a/455371.svg)](https://asciinema.org/a/455371)
 
-If you want to unload the module (revert the increased polling rate) use `sudo rmmod gcadapter_oc.ko`. You can also use `make clean` to clean up any files created by `make`.
+If you want to unload the module (revert the increased polling rate) use `sudo rmmod wmo_oc.ko`. You can also use `make clean` to clean up any files created by `make`.
 
 If you get an error saying "building multiple external modules is not supported" it's because you have a space somewhere in the path to the gcadapter-oc-kmod directory.
 
-GNU Make can't handle spaces in filenames so move the directory to a path without spaces (example: `/home/falco/My Games/gcadapter-oc-kmod` -> `/home/falco/gcadapter-oc-kmod`).
+GNU Make can't handle spaces in filenames so move the directory to a path without spaces (example: `/home/falco/My Games/wmo-oc-kmod` -> `/home/falco/wmo-oc-kmod`).
 
 ## Installing
 
@@ -24,10 +29,10 @@ A PKGBUILD is available for Arch Linux in `packaging/`. This package uses DKMS t
 
 Prepackaged versions can be found under "Releases".
 
-For other distros copying the module to an appropriate directory under `/usr/lib/modules` and creating a file called `/usr/lib/modules-load.d/gcadapter-oc.conf` with the contents `gcadapter_oc` should be enough to load the module automatically. You'll need to rebuild the module and copy every time you upgrade your kernel so I don't recommend it!
+For other distros copying the module to an appropriate directory under `/usr/lib/modules` and creating a file called `/usr/lib/modules-load.d/wmo-oc.conf` with the contents `wmo_oc` should be enough to load the module automatically. You'll need to rebuild the module and copy every time you upgrade your kernel so I don't recommend it!
 
 ## Changing the polling rate
 
 Polling rate is set according to the `bInterval` value in the USB endpoint descriptor. The value sets the polling rate in milliseconds, for example: an interval value of 4 equals 250 Hz.
 
-You can change the rate by using the kernel parameter `gcadapter_oc.rate=n` (if installed), passing the rate to `insmod gcadapter_oc.ko rate=n` or going into `/sys/module/gcadapter_oc/parameters` and using `echo n > rate` to change the value ([video](https://asciinema.org/a/455373)).
+You can change the rate by using the kernel parameter `wmo_oc.rate=n` (if installed), passing the rate to `insmod wmo_oc.ko rate=n` or going into `/sys/module/wmo_oc/parameters` and using `echo n > rate` to change the value
