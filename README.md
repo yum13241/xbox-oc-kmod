@@ -58,10 +58,14 @@ Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
 
 Bus 001 Device 002: ID 045e:0040 Microsoft Corp. Wheel Mouse Optical
 
-Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 3.0 root hub ```
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 3.0 root hub 
+```
 
 Note that in my case, I own a WMO1.1a, which is this one
+
+```
 Bus 001 Device 002: ID 045e:0040 Microsoft Corp. Wheel Mouse Optical
+```
 
 The VID:PID values are 045e:0040. 045e is the Vendor ID and 0040 is the Product ID. If your mouse has different values this won't work unless you edit the code.
 
