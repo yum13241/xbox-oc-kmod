@@ -14,7 +14,7 @@ Decide if making the VID:PID variables a list or array, receive new ones as a ke
 
 ## Building
 
-Use `make` to build gcadapter_oc.ko and `sudo insmod wmo_oc.ko` to load the module into the running kernel.
+Use `make` to build wmo_oc.ko and `sudo insmod wmo_oc.ko` to load the module into the running kernel.
 
 
 If you want to unload the module (revert the increased polling rate) use `sudo rmmod wmo_oc.ko`. You can also use `make clean` to clean up any files created by `make`.
