@@ -1,6 +1,6 @@
 # wmo_oc_kmod
 
-Kernel module for overclocking the WMO1.1a on XHCI controllers, based on HannesMan driver for Nintendo Wii U/Mayflash GameCube adapter.
+Kernel module for overclocking generic controllers on XHCI controllers, based on YeaSeb's driver for the WMO1.1a mouse.
 
 The default overclock is from 125 Hz to 1000 Hz. The WMO1.1a should be able to overclock to 1000hz with no issues but your mileage may vary, if your particular mouse can't handle it try going for 500hz.
 
@@ -42,7 +42,8 @@ You can change the rate by using the kernel parameter `wmo_oc.rate=n` (if instal
 On a terminal, use the lsusb command
 It should give you an output like this 
 
-``` Bus 004 Device 002: ID 05e3:0626 Genesys Logic, Inc. Hub
+```
+Bus 004 Device 002: ID 05e3:0626 Genesys Logic, Inc. Hub
 
 Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
 
@@ -61,9 +62,6 @@ Bus 001 Device 002: ID 045e:0040 Microsoft Corp. Wheel Mouse Optical
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 3.0 root hub 
 ```
 
-Note that in my case, I own a WMO1.1a, which is this one
-
-```
 Bus 001 Device 002: ID 045e:0040 Microsoft Corp. Wheel Mouse Optical
 ```
 
