@@ -3,8 +3,8 @@
 #include <linux/kernel.h>
 #include <linux/usb.h>
 
-#define WMO_VID 0x045e
-#define WMO_PID 0x028e
+#define DEV_VID 0x045e
+#define DEV_PID 0x028e
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("yum13241");
@@ -32,7 +32,7 @@ static unsigned short patch_endpoints(unsigned short interval) {
 						old_interval = altsettingptr->endpoint[endpoint].desc.bInterval;
 						altsettingptr->endpoint[endpoint].desc.bInterval = interval;
 
-						printk(KERN_INFO "wmo_oc: bInterval value of endpoint 0x%.2x set to %u.\n", altsettingptr->endpoint[endpoint].desc.bEndpointAddress, interval);
+						printk(KERN_INFO "xbox_oc: bInterval value of endpoint 0x%.2x set to %u.\n", altsettingptr->endpoint[endpoint].desc.bEndpointAddress, interval);
 					}
 				}
 			}
@@ -44,11 +44,11 @@ static unsigned short patch_endpoints(unsigned short interval) {
 			 */
 			int ret = usb_lock_device_for_reset(adapter_device, NULL);
 			if(ret) {
-				printk(KERN_ERR "wmo_oc: Warning! Failed to acquire lock for USB device (error: %d). Resetting device anyway...\n", ret);
+				printk(KERN_ERR "xbox_oc: Warning! Failed to acquire lock for USB device (error: %d). Resetting device anyway...\n", ret);
 			}
 			/* TODO: It might be possible to make the new bInterval value take effect without calling usb_reset_device? */
 			if(usb_reset_device(adapter_device)) {
-				printk(KERN_ERR "wmo_oc: Could not reset device (error: %d). bInterval value was NOT changed.\n", ret);
+				printk(KERN_ERR "xbox_oc: Could not reset device (error: %d). bInterval value was NOT changed.\n", ret);
 			}
 			/* Only unlock the device if usb_lock_device_for_reset succeeded. */
 			if(!ret) {
@@ -65,9 +65,9 @@ static int on_usb_notify(struct notifier_block* self, unsigned long action, void
 
 	switch(action) {
 		case USB_DEVICE_ADD:
-			if(device->descriptor.idVendor == WMO_VID && device->descriptor.idProduct == WMO_PID && adapter_device == NULL) {
+			if(device->descriptor.idVendor == DEV_VID && device->descriptor.idProduct == DEV_PID && adapter_device == NULL) {
 				adapter_device = device;
-				printk(KERN_INFO "wmo_oc: Overclockable controller connected\n");
+				printk(KERN_INFO "xbox_oc: Overclockable controller connected\n");
 
 				restore_interval = patch_endpoints(configured_interval);
 			}
@@ -76,7 +76,7 @@ static int on_usb_notify(struct notifier_block* self, unsigned long action, void
 		case USB_DEVICE_REMOVE:
 			if(adapter_device == device) {
 				adapter_device = NULL;
-				printk(KERN_INFO "wmo_oc: Overclockable controller disconnected\n");
+				printk(KERN_INFO "xbox_oc: Overclockable controller disconnected\n");
 			}
 			break;
 	}
@@ -87,9 +87,9 @@ static int on_usb_notify(struct notifier_block* self, unsigned long action, void
 static struct notifier_block usb_nb = { .notifier_call = on_usb_notify };
 
 static int usb_device_cb(struct usb_device* device, void* data) {
-	if(device->descriptor.idVendor == WMO_VID && device->descriptor.idProduct == WMO_PID && adapter_device == NULL) {
+	if(device->descriptor.idVendor == DEV_VID && device->descriptor.idProduct == DEV_PID && adapter_device == NULL) {
 		adapter_device = device;
-		printk(KERN_INFO "wmo_oc: adapter_device is null, why?\n");
+		printk(KERN_INFO "xbox_oc: adapter_device is null, why?\n");
 
 		restore_interval = patch_endpoints(configured_interval);
 	}
@@ -99,12 +99,12 @@ static int usb_device_cb(struct usb_device* device, void* data) {
 
 static int __init on_module_init(void) {
 	if(configured_interval > 255) {
-		printk(KERN_WARNING "wmo_oc: Invalid interval parameter specified.\n");
+		printk(KERN_WARNING "xbox_oc: Invalid interval parameter specified.\n");
 		configured_interval = 255;
 	}
 
 	if(configured_interval == 0) {
-		printk(KERN_WARNING "wmo_oc: Invalid interval parameter specified.\n");
+		printk(KERN_WARNING "xbox_oc: Invalid interval parameter specified.\n");
 		configured_interval = 1;
 	}
 
@@ -130,11 +130,11 @@ static int on_interval_changed(const char* value, const struct kernel_param* kp)
 
 	if(!ret) {
 		if(configured_interval > 255) {
-			printk(KERN_WARNING "wmo_oc: Invalid interval parameter specified.\n");
+			printk(KERN_WARNING "xbox_oc: Invalid interval parameter specified.\n");
 			configured_interval = 255;
 		}
 		else if(configured_interval == 0) {
-			printk(KERN_WARNING "wmo_oc: Invalid interval parameter specified.\n");
+			printk(KERN_WARNING "xbox_oc: Invalid interval parameter specified.\n");
 			configured_interval = 1;
 		}
 
