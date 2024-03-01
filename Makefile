@@ -1,4 +1,4 @@
-obj-m += wmo_oc.o
+obj-m += xbox_oc.o
 ccflags-y := -std=gnu99
 KERNEL_SOURCE_DIR := /lib/modules/$(shell uname -r)/build
 
