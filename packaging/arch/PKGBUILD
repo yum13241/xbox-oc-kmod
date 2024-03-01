@@ -30,5 +30,5 @@ package() {
   sed -e "s/@PKGVER@/${pkgver}/" \
       -i "${pkgdir}"/usr/src/${pkgname}-${pkgver}/dkms.conf
 
-  cp -r wmo-oc-kmod-${pkgver}/* "${pkgdir}"/usr/src/${pkgname}-${pkgver}/
+  cp -r wmo-oc-kmod-master/* "${pkgdir}"/usr/src/${pkgname}-${pkgver}/
 }
