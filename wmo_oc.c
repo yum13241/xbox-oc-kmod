@@ -4,11 +4,11 @@
 #include <linux/usb.h>
 
 #define WMO_VID 0x045e
-#define WMO_PID 0x0040
+#define WMO_PID 0x028e
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Sebastián Zambrano");
-MODULE_DESCRIPTION("Filter kernel module to set the polling rate of the WMO to a custom value on XHCI.");
+MODULE_AUTHOR("yum13241");
+MODULE_DESCRIPTION("Filter kernel module to set the polling rate of generic controllers to a custom value on XHCI.");
 MODULE_VERSION("1.0");
 
 static struct usb_device* adapter_device = NULL;
@@ -67,7 +67,7 @@ static int on_usb_notify(struct notifier_block* self, unsigned long action, void
 		case USB_DEVICE_ADD:
 			if(device->descriptor.idVendor == WMO_VID && device->descriptor.idProduct == WMO_PID && adapter_device == NULL) {
 				adapter_device = device;
-				printk(KERN_INFO "wmo_oc: Overclockable mouse connected\n");
+				printk(KERN_INFO "wmo_oc: Overclockable controller connected\n");
 
 				restore_interval = patch_endpoints(configured_interval);
 			}
@@ -76,7 +76,7 @@ static int on_usb_notify(struct notifier_block* self, unsigned long action, void
 		case USB_DEVICE_REMOVE:
 			if(adapter_device == device) {
 				adapter_device = NULL;
-				printk(KERN_INFO "wmo_oc: Overclockable mouse disconnected\n");
+				printk(KERN_INFO "wmo_oc: Overclockable controller disconnected\n");
 			}
 			break;
 	}
@@ -89,7 +89,7 @@ static struct notifier_block usb_nb = { .notifier_call = on_usb_notify };
 static int usb_device_cb(struct usb_device* device, void* data) {
 	if(device->descriptor.idVendor == WMO_VID && device->descriptor.idProduct == WMO_PID && adapter_device == NULL) {
 		adapter_device = device;
-		printk(KERN_INFO "wmo_oc: wheel mouse optical connected\n");
+		printk(KERN_INFO "wmo_oc: adapter_device is null, why?\n");
 
 		restore_interval = patch_endpoints(configured_interval);
 	}
