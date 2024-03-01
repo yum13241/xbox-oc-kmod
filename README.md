@@ -1,8 +1,8 @@
-# wmo_oc_kmod
+# xbox-oc-kmod
 
-Kernel module for overclocking generic controllers on XHCI controllers, based on YeaSeb's driver for the WMO1.1a mouse.
+Kernel module for overclocking generic controllers on XHCI controllers, based on YeaSeb's similar script for the WMO1.1a mouse.
 
-The default overclock is from 125 Hz to 1000 Hz. The GC should be able to overclock to 1000hz with no issues but your mileage may vary, if your particular controller can't handle it try going for 500hz.
+The default overclock is from 125 Hz to 1000 Hz. The GCC controller should be able to overclock to 1000hz with no issues but your mileage may vary, if your particular controller can't handle it try going for 500hz.
 
 You should have already tried the official instructions on ArchWiki before needing this, if you have a native EHCI controller then you may be better off using that.
 
